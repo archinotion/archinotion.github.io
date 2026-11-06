@@ -16,18 +16,19 @@ input:focus,select:focus{border-color:rgba(44,44,43,.45)}
 .lab{font-size:12px;color:var(--mut);margin-bottom:3px}
 .note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px}.o{background:var(--bg);border-radius:4px;padding:8px 10px}.o .v{font-size:20px;line-height:1.2}.o .k{font-size:11px;color:var(--mut)}.o.warn{background:var(--ink);color:#fff}.o.warn .k{color:rgba(255,255,255,.65)}/*narrow*/@media (max-width:460px){.g{grid-template-columns:1fr 1fr}.g>div:nth-child(3){display:none}.out{grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.o{padding:6px 9px}.o .v{font-size:16px}.o .k{font-size:10.5px}}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
 <div class="blk"><div class="hd"><div class="tt">계단 계산기</div><div class="sub">2R+T 600~650</div></div>
-<div class="g"><div><div class="lab">층고 (mm)</div><input id="h" inputmode="decimal" value="3300"></div>
+<div class="g"><div><div class="lab">계단 높이·층고 (mm)</div><input id="h" inputmode="decimal" value="3300"></div>
 <div><div class="lab">용도</div><select id="u"></select></div>
 <div><div class="lab">목표 단높이 (mm)</div><input id="rt" inputmode="decimal" placeholder="자동"></div></div>
 <div class="out" id="out"></div>
 <div class="note" id="nt"></div></div>
 <script>
-const UZ=[['그 밖의 계단',200,240],['공연·집회·판매 등',180,260],['중·고등학교',180,260],['초등학교',160,260]];
-const $=i=>document.getElementById(i);UZ.forEach((z,i)=>{const o=document.createElement('option');o.value=i;o.textContent=z[0]+' (≤'+z[1]/10+' / ≥'+z[2]/10+'cm)';$('u').appendChild(o)});
-function calc(){const H=+$('h').value,[nm,Rmax,Tmin]=UZ[+$('u').value];const tgt=+$('rt').value||Math.min(Rmax,175);if(!(H>0)){$('out').innerHTML='';return}
-let n=Math.ceil(H/tgt);let R=H/n;if(R>Rmax){n=Math.ceil(H/Rmax);R=H/n}const T=Math.max(Tmin,Math.round(630-2*R));const run=(n-1)*T;const land=H>3000;
-const ok=R<=Rmax&&T>=Tmin;
-$('out').innerHTML=[['단수',n+'단'],['단높이',Math.round(R*10)/10+'mm'],['단너비',T+'mm'],['수평거리',(run/1000).toFixed(2)+'m'],['계단참',land?'필요':'없어도 됨',land]].map(x=>'<div class="o'+(x[2]?' warn':'')+'"><div class="k">'+x[0]+'</div><div class="v num">'+x[1]+'</div></div>').join('');
-$('nt').textContent=(ok?'용도 기준 충족':'기준 미달')+' · 2R+T '+Math.round(2*R+T)+'mm · 피난·방화구조 규칙 제15조 참고용'}
+// [이름, 단높이 최대(mm, null=법정 기준 없음), 단너비 최소(mm), 최소 유효너비(cm), 계단참 간격(mm), 근거]
+const UZ=[['초등학교',160,260,'150',3000,'피난·방화구조 규칙 제15조'],['중·고등학교',180,260,'150',3000,'피난·방화구조 규칙 제15조'],['공동주택 공용계단',180,260,'120',2000,'주택건설기준 규정 제16조'],['주택단지 옥외계단',200,240,'90',2000,'주택건설기준 규정 제16조'],['공연·집회·판매시설',null,null,'120',3000,'피난·방화구조 규칙 제15조'],['그 밖의 건축물',null,null,'60~120',3000,'피난·방화구조 규칙 제15조']];
+const $=i=>document.getElementById(i);UZ.forEach((z,i)=>{const o=document.createElement('option');o.value=i;o.textContent=z[0]+(z[1]?' (≤'+z[1]/10+' / ≥'+z[2]/10+'cm)':'');$('u').appendChild(o)});$('u').value=5;
+function calc(){const H=+$('h').value,[nm,Rmax,Tmin,W,LS,src]=UZ[+$('u').value];const lim=Rmax||200;const tgt=Math.min(+$('rt').value||Math.min(lim,175),lim);if(!(H>0)){$('out').innerHTML='';return}
+let n=Math.ceil(H/tgt);let R=H/n;const T=Math.max(Tmin||0,Math.round(630-2*R));const run=(n-1)*T;const nl=Math.max(0,Math.ceil(H/LS)-1);
+const ok=Rmax?(R<=Rmax&&T>=Tmin):true;
+$('out').innerHTML=[['단수',n+'단'],['단높이',Math.round(R*10)/10+'mm'],['단너비',T+'mm'],['수평거리',(run/1000).toFixed(2)+'m'],['계단참',nl?nl+'곳 필요':'없어도 됨',nl>0],['최소 유효너비',W+'cm']].map(x=>'<div class="o'+(x[2]?' warn':'')+'"><div class="k">'+x[0]+'</div><div class="v num">'+x[1]+'</div></div>').join('');
+$('nt').textContent=(Rmax?(ok?'기준 충족':'기준 미달'):'법정 단 치수 없음 · 권장식 계산')+' · 2R+T '+Math.round(2*R+T)+' · 계단참 '+(LS/1000)+'m마다 · '+src}
 ['h','rt'].forEach(i=>$(i).oninput=calc);$('u').onchange=calc;calc();
 </script></body></html>
