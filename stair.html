@@ -15,7 +15,7 @@ input:focus,select:focus{border-color:rgba(44,44,43,.45)}
 .num{font-weight:400;font-variant-numeric:tabular-nums}
 .lab{font-size:12px;color:var(--mut);margin-bottom:3px}
 .note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px}.o{background:var(--bg);border-radius:4px;padding:8px 10px}.o .v{font-size:20px;line-height:1.2}.o .k{font-size:11px;color:var(--mut)}.o.warn{background:var(--ink);color:#fff}.o.warn .k{color:rgba(255,255,255,.65)}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
-<div class="blk"><div class="hd"><div class="tt">계단 계산기</div><div class="sub">2R + T = 600~650mm</div></div>
+<div class="blk"><div class="hd"><div class="tt">계단 계산기</div><div class="sub">2R+T 600~650</div></div>
 <div class="g"><div><div class="lab">층고 (mm)</div><input id="h" inputmode="decimal" value="3300"></div>
 <div><div class="lab">용도</div><select id="u"></select></div>
 <div><div class="lab">목표 단높이 (mm)</div><input id="rt" inputmode="decimal" placeholder="자동"></div></div>
@@ -27,7 +27,7 @@ const $=i=>document.getElementById(i);UZ.forEach((z,i)=>{const o=document.create
 function calc(){const H=+$('h').value,[nm,Rmax,Tmin]=UZ[+$('u').value];const tgt=+$('rt').value||Math.min(Rmax,175);if(!(H>0)){$('out').innerHTML='';return}
 let n=Math.ceil(H/tgt);let R=H/n;if(R>Rmax){n=Math.ceil(H/Rmax);R=H/n}const T=Math.max(Tmin,Math.round(630-2*R));const run=(n-1)*T;const land=H>3000;
 const ok=R<=Rmax&&T>=Tmin;
-$('out').innerHTML=[['단수',n+'단'],['단높이',Math.round(R*10)/10+'mm'],['단너비',T+'mm'],['2R+T',Math.round(2*R+T)+'mm'],['수평거리(직선)',(run/1000).toFixed(2)+'m'],['계단참',land?'필요':'없어도 됨',land]].map(x=>'<div class="o'+(x[2]?' warn':'')+'"><div class="k">'+x[0]+'</div><div class="v num">'+x[1]+'</div></div>').join('');
-$('nt').textContent=(ok?'선택한 용도 기준 충족. ':'기준 미달, 값을 조정하세요. ')+'높이 3m를 넘으면 3m 이내마다 너비 1.2m 이상 계단참을 둡니다. 기준은 건축물의 피난·방화구조 규칙 제15조 참고용이니 과제·법규를 꼭 확인하세요.'}
+$('out').innerHTML=[['단수',n+'단'],['단높이',Math.round(R*10)/10+'mm'],['단너비',T+'mm'],['수평거리',(run/1000).toFixed(2)+'m'],['계단참',land?'필요':'없어도 됨',land]].map(x=>'<div class="o'+(x[2]?' warn':'')+'"><div class="k">'+x[0]+'</div><div class="v num">'+x[1]+'</div></div>').join('');
+$('nt').textContent=(ok?'용도 기준 충족':'기준 미달')+' · 2R+T '+Math.round(2*R+T)+'mm · 피난·방화구조 규칙 제15조 참고용'}
 ['h','rt'].forEach(i=>$(i).oninput=calc);$('u').onchange=calc;calc();
 </script></body></html>
