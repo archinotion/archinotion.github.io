@@ -15,7 +15,7 @@ input:focus,select:focus{border-color:var(--ink)}
 .row{display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:end}.lab{font-size:11px;color:var(--mut);margin-bottom:4px}
 .eq{text-align:center;font-family:'Black Han Sans';font-size:18px;padding-bottom:6px}.scales{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .unit{display:flex;gap:6px}.unit input{flex:1}.unit select{width:72px;flex:none}.res{margin-top:10px;font-size:12px;color:var(--mut)}@media (max-width:420px){.row{grid-template-columns:1fr}.eq{transform:rotate(90deg);padding:0}}@media (max-width:300px){.blk{margin:12px 4px 6px 15px;padding:10px 10px}.tt{font-size:15px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}.dd{font-size:24px}.tm{font-size:34px}.list{grid-template-columns:1fr!important;gap:6px}.it{padding:7px 10px}.scales{gap:4px;margin-bottom:8px}.unit select{width:58px}input,select{padding:5px 6px;font-size:13px}.lab{margin-bottom:2px}.ctl{gap:4px}.stat .sq{width:10px;height:10px}.hd{margin-bottom:8px;gap:6px}}
-html,body{overflow:hidden}</style></head><body>
+html,body{overflow:hidden}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
 <div class="blk"><div class="hd"><div class="tt">축척 계산기</div><div class="sub">아키노션</div></div>
 <div class="scales" id="sc"></div>
 <div class="row"><div><div class="lab">실제 치수</div><div class="unit"><input id="real" inputmode="decimal" value="3000"><select id="ru"><option>mm</option><option>cm</option><option selected>m</option></select></div></div>

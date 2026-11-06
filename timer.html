@@ -15,7 +15,7 @@ input:focus,select:focus{border-color:var(--ink)}
 .tm{font-family:'Black Han Sans';font-size:44px;text-align:center;letter-spacing:1px;margin:4px 0}.ph{text-align:center;font-size:12px;color:var(--mut)}
 .bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:var(--ink);width:0}
 .ctl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.stat{display:flex;gap:4px;justify-content:center;margin-top:10px}.sq{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:2px}.sq.on{background:var(--ink)}@media (max-width:300px){.blk{margin:12px 4px 6px 15px;padding:10px 10px}.tt{font-size:15px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}.dd{font-size:24px}.tm{font-size:34px}.list{grid-template-columns:1fr!important;gap:6px}.it{padding:7px 10px}.scales{gap:4px;margin-bottom:8px}.unit select{width:58px}input,select{padding:5px 6px;font-size:13px}.lab{margin-bottom:2px}.ctl{gap:4px}.stat .sq{width:10px;height:10px}.hd{margin-bottom:8px;gap:6px}}
-html,body{overflow:hidden}</style></head><body>
+html,body{overflow:hidden}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
 <div class="blk"><div class="hd"><div class="tt">작업 타이머</div><div class="sub" id="pre"></div></div>
 <div class="ph" id="ph">집중</div><div class="tm" id="tm">50:00</div><div class="bar"><i id="bar"></i></div>
 <div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" data-p="50,10">50/10</button><button class="chip" data-p="25,5">25/5</button></div>
