@@ -1,20 +1,23 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>작업 타이머 · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
-:root{--ink:#37352F;--bg:#F4F2EE;--mut:#8b877f;--line:#E4E1DA}
-*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
-.blk{margin:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px}
-.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.tt{font-size:13px;font-weight:600;letter-spacing:.2px}.tt:before{content:'';display:inline-block;width:8px;height:8px;background:var(--ink);border-radius:2px;margin-right:7px;vertical-align:1px}
-.sub{font-size:11px;color:var(--mut);font-weight:400}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>작업 타이머 · 아키노션</title><style>:root{--ink:#2C2C2B;--mut:rgba(44,44,43,.55);--line:rgba(44,44,43,.12);--bg:#F4F3F0;
+--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",Helvetica,"Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+--serif:Lyon-Text,Georgia,"Nanum Myeongjo",NanumMyeongjo,Batang,"Hiragino Mincho ProN","Hiragino Mincho Pro",serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:transparent;font-family:var(--sans);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+html.serif body{font-family:var(--serif)}
+.blk{margin:4px;height:calc(100% - 8px);background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;min-height:22px}
+.tt{font-size:14px;font-weight:600}.tt:before{content:'';display:inline-block;width:7px;height:7px;background:var(--ink);border-radius:1.5px;margin-right:7px;vertical-align:2px}
+.sub{font-size:12px;color:var(--mut);font-weight:400}
 button{font:inherit;cursor:pointer}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink);font-weight:400}
-.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
-input,select{font:inherit;font-weight:400;border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
-input:focus,select:focus{border-color:var(--ink)}
-.num{font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
-@media (max-width:300px){.blk{padding:10px 10px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}input,select{padding:5px 6px;font-size:13px}}.wrap{display:flex;align-items:center;gap:16px}.left{flex:1;min-width:0}.tm{font-size:40px;line-height:1}.ph{font-size:11px;color:var(--mut);margin-bottom:2px}
-.bar{height:4px;background:var(--bg);border-radius:2px;overflow:hidden;margin:10px 0 0}.bar i{display:block;height:100%;background:var(--ink);width:0}
-.ctl{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;max-width:150px}.stat{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px;align-items:center}.sq{width:9px;height:9px;border:1px solid var(--ink);border-radius:2px}.sq.on{background:var(--ink)}.sl{font-size:11px;color:var(--mut);margin-left:6px}
-@media (max-width:340px){.wrap{display:block}.ctl{justify-content:flex-start;max-width:none;margin-top:10px}.tm{font-size:34px}}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
+.chip{border:1px solid var(--line);background:#fff;border-radius:4px;padding:2px 8px;font-size:12px;color:var(--ink);font-weight:500}
+.chip:hover{background:var(--bg)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+input,select{font:inherit;font-size:14px;font-weight:400;border:1px solid var(--line);border-radius:4px;padding:4px 7px;background:var(--bg);color:var(--ink);outline:none;width:100%;height:30px}
+input:focus,select:focus{border-color:rgba(44,44,43,.45)}
+.num{font-weight:400;font-variant-numeric:tabular-nums}
+.lab{font-size:12px;color:var(--mut);margin-bottom:3px}
+.note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.wrap{display:flex;align-items:center;gap:12px;flex:1}.left{flex:1;min-width:0}.tm{font-size:34px;line-height:1.1}.ph{font-size:12px;color:var(--mut)}
+.bar{height:3px;background:var(--bg);border-radius:2px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--ink);width:0}
+.ctl{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:116px}.stat{display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding-top:8px}.sq{width:8px;height:8px;border:1px solid var(--ink);border-radius:1.5px}.sq.on{background:var(--ink)}.sl{font-size:11px;color:var(--mut);margin-left:6px}
+@media (max-width:300px){.ctl{width:96px}.tm{font-size:28px}}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
 <div class="blk"><div class="hd"><div class="tt">작업 타이머</div><div class="sub" id="pre"></div></div>
 <div class="wrap"><div class="left"><div class="ph" id="ph">집중</div><div class="tm num" id="tm">50:00</div><div class="bar"><i id="bar"></i></div></div>
 <div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" data-p="50,10">50/10</button><button class="chip" data-p="25,5">25/5</button></div></div>
@@ -23,10 +26,10 @@ input:focus,select:focus{border-color:var(--ink)}
 let W=50,B=10,phase='w',left=W*60,run=false,t=null;const K='an-timer-'+new Date().toISOString().slice(0,10);let mem=0;
 const $=id=>document.getElementById(id);
 function done(){try{return +(localStorage.getItem(K)||0)}catch(e){return mem}}function addDone(){try{localStorage.setItem(K,done()+1)}catch(e){mem++}}
-function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?W:B)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pre').textContent=W+'분 작업 · '+B+'분 휴식';
-const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}const sl=document.createElement('span');sl.className='sl';sl.textContent='오늘 블록 '+n+'개 · '+Math.round(n*W/60*10)/10+'시간';$('st').appendChild(sl)}
+function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?W:B)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pre').textContent=W+' / '+B+'분';
+const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}const sl=document.createElement('span');sl.className='sl';sl.textContent='오늘 '+n+'블록 · '+Math.round(n*W/60*10)/10+'시간';$('st').appendChild(sl)}
 function tick(){left--;if(left<0){if(phase==='w'){addDone();phase='b';left=B*60}else{phase='w';left=W*60}}draw()}
-$('go').onclick=()=>{run=!run;$('go').textContent=run?'일시정지':'시작';if(run)t=setInterval(tick,1000);else clearInterval(t)};
+$('go').onclick=()=>{run=!run;$('go').textContent=run?'정지':'시작';if(run)t=setInterval(tick,1000);else clearInterval(t)};
 $('rs').onclick=()=>{clearInterval(t);run=false;$('go').textContent='시작';phase='w';left=W*60;draw()};
 document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{[W,B]=b.dataset.p.split(',').map(Number);$('rs').onclick()});
 draw();

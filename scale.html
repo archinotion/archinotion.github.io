@@ -1,32 +1,35 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>축척 계산기 · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
-:root{--ink:#37352F;--bg:#F4F2EE;--mut:#8b877f;--line:#E4E1DA}
-*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
-.blk{margin:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px}
-.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.tt{font-size:13px;font-weight:600;letter-spacing:.2px}.tt:before{content:'';display:inline-block;width:8px;height:8px;background:var(--ink);border-radius:2px;margin-right:7px;vertical-align:1px}
-.sub{font-size:11px;color:var(--mut);font-weight:400}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>축척 계산기 · 아키노션</title><style>:root{--ink:#2C2C2B;--mut:rgba(44,44,43,.55);--line:rgba(44,44,43,.12);--bg:#F4F3F0;
+--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",Helvetica,"Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+--serif:Lyon-Text,Georgia,"Nanum Myeongjo",NanumMyeongjo,Batang,"Hiragino Mincho ProN","Hiragino Mincho Pro",serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:transparent;font-family:var(--sans);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+html.serif body{font-family:var(--serif)}
+.blk{margin:4px;height:calc(100% - 8px);background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;min-height:22px}
+.tt{font-size:14px;font-weight:600}.tt:before{content:'';display:inline-block;width:7px;height:7px;background:var(--ink);border-radius:1.5px;margin-right:7px;vertical-align:2px}
+.sub{font-size:12px;color:var(--mut);font-weight:400}
 button{font:inherit;cursor:pointer}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink);font-weight:400}
-.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
-input,select{font:inherit;font-weight:400;border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
-input:focus,select:focus{border-color:var(--ink)}
-.num{font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
-@media (max-width:300px){.blk{padding:10px 10px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}input,select{padding:5px 6px;font-size:13px}}.row{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;align-items:end}.lab{font-size:11px;color:var(--mut);margin-bottom:4px}
-.eq{text-align:center;font-size:16px;color:var(--mut);padding-bottom:7px}.scales{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
-.unit{display:flex;gap:6px}.unit input{flex:1;min-width:0}.unit select{width:66px;flex:none}.res{margin-top:10px;font-size:11px;color:var(--mut)}
-@media (max-width:420px){.row{grid-template-columns:1fr}.eq{transform:rotate(90deg);padding:0}}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
-<div class="blk"><div class="hd"><div class="tt">축척 계산기</div><div class="sub">실제 치수 ⇄ 도면·모형 치수</div></div>
+.chip{border:1px solid var(--line);background:#fff;border-radius:4px;padding:2px 8px;font-size:12px;color:var(--ink);font-weight:500}
+.chip:hover{background:var(--bg)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+input,select{font:inherit;font-size:14px;font-weight:400;border:1px solid var(--line);border-radius:4px;padding:4px 7px;background:var(--bg);color:var(--ink);outline:none;width:100%;height:30px}
+input:focus,select:focus{border-color:rgba(44,44,43,.45)}
+.num{font-weight:400;font-variant-numeric:tabular-nums}
+.lab{font-size:12px;color:var(--mut);margin-bottom:3px}
+.note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.scales{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}.ssel{display:none;width:96px;height:26px;font-size:12px;padding:2px 6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.unit{display:flex;gap:5px}.unit input{flex:1;min-width:0}.unit select{width:60px;flex:none}
+@media (max-width:440px){.scales,.wide{display:none}.ssel{display:block}.row{grid-template-columns:1fr;gap:6px}.lr{display:grid;grid-template-columns:34px 1fr;align-items:center}.lr .lab{margin:0}}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
+<div class="blk"><div class="hd"><div class="tt">축척 계산기</div><select class="ssel" id="ss"></select><div class="sub wide">실제 ⇄ 도면·모형</div></div>
 <div class="scales" id="sc"></div>
-<div class="row"><div><div class="lab">실제 치수</div><div class="unit"><input id="real" inputmode="decimal" value="3"><select id="ru"><option>mm</option><option>cm</option><option selected>m</option></select></div></div>
-<div class="eq">⇄</div><div><div class="lab">도면·모형 치수</div><div class="unit"><input id="draw" inputmode="decimal"><select id="du"><option selected>mm</option><option>cm</option></select></div></div></div>
-<div class="res" id="res"></div></div>
+<div class="row"><div class="lr"><div class="lab">실제</div><div class="unit"><input id="real" inputmode="decimal" value="3"><select id="ru"><option>mm</option><option>cm</option><option selected>m</option></select></div></div>
+<div class="lr"><div class="lab">도면</div><div class="unit"><input id="draw" inputmode="decimal"><select id="du"><option selected>mm</option><option>cm</option></select></div></div></div>
+<div class="note" id="res"></div></div>
 <script>
 const S=[20,50,100,200,300,500,1000];const U={mm:1,cm:10,m:1000};let k=+(new URLSearchParams(location.search).get('s')||100);
-const $=i=>document.getElementById(i),sc=$('sc'),real=$('real'),draw=$('draw'),ru=$('ru'),du=$('du'),res=$('res');
-function chips(){sc.innerHTML='';S.forEach(s=>{const b=document.createElement('button');b.className='chip'+(s===k?' on':'');b.textContent='1:'+s;b.onclick=()=>{k=s;chips();fromReal()};sc.appendChild(b)})}
+const $=i=>document.getElementById(i),sc=$('sc'),ss=$('ss'),real=$('real'),draw=$('draw'),ru=$('ru'),du=$('du'),res=$('res');
+S.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent='1:'+s;ss.appendChild(o)});ss.onchange=()=>{k=+ss.value;chips();fromReal()};
+function chips(){ss.value=k;sc.innerHTML='';S.forEach(s=>{const b=document.createElement('button');b.className='chip'+(s===k?' on':'');b.textContent='1:'+s;b.onclick=()=>{k=s;chips();fromReal()};sc.appendChild(b)})}
 const f=n=>Math.round(n*100)/100;
 function fromReal(){const r=parseFloat(real.value);if(isNaN(r)){draw.value='';return}draw.value=f(r*U[ru.value]/k/U[du.value]);note()}
 function fromDraw(){const d=parseFloat(draw.value);if(isNaN(d)){real.value='';return}real.value=f(d*U[du.value]*k/U[ru.value]);note()}
-function note(){res.textContent='1:'+k+' 에서 도면 1mm는 실제 '+f(k/1000)+'m'}
+function note(){res.textContent='1:'+k+' · 도면 1mm = 실제 '+f(k/1000)+'m'}
 real.oninput=fromReal;ru.onchange=fromReal;draw.oninput=fromDraw;du.onchange=fromReal;chips();fromReal();
 </script></body></html>

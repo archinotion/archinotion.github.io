@@ -1,24 +1,27 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>D-day · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
-:root{--ink:#37352F;--bg:#F4F2EE;--mut:#8b877f;--line:#E4E1DA}
-*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
-.blk{margin:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px}
-.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.tt{font-size:13px;font-weight:600;letter-spacing:.2px}.tt:before{content:'';display:inline-block;width:8px;height:8px;background:var(--ink);border-radius:2px;margin-right:7px;vertical-align:1px}
-.sub{font-size:11px;color:var(--mut);font-weight:400}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>D-day · 아키노션</title><style>:root{--ink:#2C2C2B;--mut:rgba(44,44,43,.55);--line:rgba(44,44,43,.12);--bg:#F4F3F0;
+--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",Helvetica,"Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+--serif:Lyon-Text,Georgia,"Nanum Myeongjo",NanumMyeongjo,Batang,"Hiragino Mincho ProN","Hiragino Mincho Pro",serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:transparent;font-family:var(--sans);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+html.serif body{font-family:var(--serif)}
+.blk{margin:4px;height:calc(100% - 8px);background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;min-height:22px}
+.tt{font-size:14px;font-weight:600}.tt:before{content:'';display:inline-block;width:7px;height:7px;background:var(--ink);border-radius:1.5px;margin-right:7px;vertical-align:2px}
+.sub{font-size:12px;color:var(--mut);font-weight:400}
 button{font:inherit;cursor:pointer}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink);font-weight:400}
-.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
-input,select{font:inherit;font-weight:400;border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
-input:focus,select:focus{border-color:var(--ink)}
-.num{font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
-@media (max-width:300px){.blk{padding:10px 10px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}input,select{padding:5px 6px;font-size:13px}}.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.it{background:var(--bg);border-radius:6px;padding:10px 12px}
-.nm{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dd{font-size:28px;line-height:1.15;margin-top:2px}.dt{font-size:11px;color:var(--mut)}
-.it.hot{background:var(--ink);color:#fff}.it.hot .dt{color:#cfcac0}.it.past{opacity:.45}
-.ed{display:none;margin-top:10px}.ed.on{display:block}.er{display:grid;grid-template-columns:1fr 130px 22px;gap:6px;margin-bottom:6px}.x{border:none;background:none;font-size:15px;color:var(--mut)}
-.acts{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.empty{font-size:12px;color:var(--mut)}
-@media (max-width:300px){.list{grid-template-columns:1fr}.dd{font-size:24px}.er{grid-template-columns:1fr;}}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
-<div class="blk"><div class="hd"><div class="tt">D-day</div><button class="chip" id="eb">편집</button></div>
-<div class="list" id="list"></div><div class="ed" id="ed"><div id="rows"></div><div class="acts"><button class="chip" id="add">+ 추가</button><button class="chip on" id="save">저장</button><button class="chip" id="cp">링크 복사</button></div><div class="sub" id="msg" style="margin-top:6px"></div></div></div>
+.chip{border:1px solid var(--line);background:#fff;border-radius:4px;padding:2px 8px;font-size:12px;color:var(--ink);font-weight:500}
+.chip:hover{background:var(--bg)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+input,select{font:inherit;font-size:14px;font-weight:400;border:1px solid var(--line);border-radius:4px;padding:4px 7px;background:var(--bg);color:var(--ink);outline:none;width:100%;height:30px}
+input:focus,select:focus{border-color:rgba(44,44,43,.45)}
+.num{font-weight:400;font-variant-numeric:tabular-nums}
+.lab{font-size:12px;color:var(--mut);margin-bottom:3px}
+.note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;flex:1;min-height:0}.it{background:var(--bg);border-radius:4px;padding:9px 12px;display:flex;flex-direction:column;justify-content:center}
+.nm{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dd{font-size:26px;line-height:1.2;margin:2px 0}.dt{font-size:11px;color:var(--mut)}
+.it.hot{background:var(--ink);color:#fff}.it.hot .dt{color:rgba(255,255,255,.65)}.it.past{opacity:.45}
+.ed{display:none;position:absolute;inset:4px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px;overflow:auto}.ed.on{display:block}
+.er{display:grid;grid-template-columns:1fr 140px 22px;gap:6px;margin-bottom:6px}.x{border:none;background:none;font-size:15px;color:var(--mut)}
+.acts{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.empty{font-size:13px;color:var(--mut)}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
+<div class="blk"><div class="hd"><div class="tt">D-day</div><button class="chip" id="eb">편집</button></div><div class="list" id="list"></div></div>
+<div class="ed" id="ed"><div class="hd"><div class="tt">D-day 편집</div><button class="chip" id="cl">닫기</button></div><div id="rows"></div><div class="acts"><button class="chip" id="add">+ 추가</button><button class="chip on" id="save">저장</button><button class="chip" id="cp">링크 복사</button></div><div class="sub" id="msg" style="margin-top:6px"></div></div>
 <script>
 const P=new URLSearchParams(location.search);const KEY='an-dday-'+(P.get('id')||'default');
 let items=[];for(let i=1;i<=6;i++){const t=P.get('t'+i),d=P.get('d'+i);if(t&&d)items.push({t,d})}
@@ -28,11 +31,11 @@ const today=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth()
 function diff(d){const [y,m,dd]=d.split('-').map(Number);return Math.round((new Date(y,m-1,dd)-today())/864e5)}
 function render(){const L=document.getElementById('list');L.innerHTML='';const v=items.filter(x=>x.d).sort((a,b)=>a.d.localeCompare(b.d));
 if(!v.length){L.innerHTML='<div class="empty">편집을 눌러 마감일을 넣어 주세요.</div>';return}
-v.forEach(x=>{const n=diff(x.d);const e=document.createElement('div');e.className='it'+(n>=0&&n<=3?' hot':'')+(n<0?' past':'');e.innerHTML='<div class="nm"></div><div class="dd num">'+(n===0?'D-DAY':n>0?'D-'+n:'D+'+(-n))+'</div><div class="dt">'+x.d.replace(/-/g,'.')+'</div>';e.querySelector('.nm').textContent=x.t;L.appendChild(e)})}
+v.forEach(x=>{const n=diff(x.d);const e=document.createElement('div');e.className='it'+(n>=0&&n<=3?' hot':'')+(n<0?' past':'');e.innerHTML='<div class="nm"></div><div class="dd num">'+(n===0?'D-Day':n>0?'D-'+n:'D+'+(-n))+'</div><div class="dt">'+x.d.replace(/-/g,'.')+'</div>';e.querySelector('.nm').textContent=x.t;L.appendChild(e)})}
 function rows(){const R=document.getElementById('rows');R.innerHTML='';items.forEach((x,i)=>{const r=document.createElement('div');r.className='er';r.innerHTML='<input placeholder="이름"><input type="date"><button class="x">×</button>';const [a,b,c]=r.children;a.value=x.t;b.value=x.d;a.oninput=()=>x.t=a.value;b.oninput=()=>x.d=b.value;c.onclick=()=>{items.splice(i,1);rows()};R.appendChild(r)})}
-document.getElementById('eb').onclick=()=>{document.getElementById('ed').classList.toggle('on');rows()};
+const ED=document.getElementById('ed');document.getElementById('eb').onclick=()=>{ED.classList.add('on');rows()};document.getElementById('cl').onclick=()=>ED.classList.remove('on');
 document.getElementById('add').onclick=()=>{if(items.length<6){items.push({t:'',d:''});rows()}};
-document.getElementById('save').onclick=()=>{items=items.filter(x=>x.t&&x.d);try{localStorage.setItem(KEY,JSON.stringify(items))}catch(e){}render();document.getElementById('ed').classList.remove('on')};
-document.getElementById('cp').onclick=async()=>{const u=new URL(location.href.split('?')[0]);if(P.get('bg'))u.searchParams.set('bg',P.get('bg'));items.filter(x=>x.t&&x.d).forEach((x,i)=>{u.searchParams.set('t'+(i+1),x.t);u.searchParams.set('d'+(i+1),x.d)});const m=document.getElementById('msg');try{await navigator.clipboard.writeText(u.toString());m.textContent='복사했어요. 노션 임베드 주소를 이 링크로 바꾸면 모든 기기에서 같게 보여요.'}catch(e){m.textContent=u.toString()}};
+document.getElementById('save').onclick=()=>{items=items.filter(x=>x.t&&x.d);try{localStorage.setItem(KEY,JSON.stringify(items))}catch(e){}render();ED.classList.remove('on')};
+document.getElementById('cp').onclick=async()=>{const u=new URL(location.href.split('?')[0]);['bg','font'].forEach(k=>{if(P.get(k))u.searchParams.set(k,P.get(k))});items.filter(x=>x.t&&x.d).forEach((x,i)=>{u.searchParams.set('t'+(i+1),x.t);u.searchParams.set('d'+(i+1),x.d)});const m=document.getElementById('msg');try{await navigator.clipboard.writeText(u.toString());m.textContent='복사했어요. 노션 임베드 주소를 이 링크로 바꾸면 모든 기기에서 같게 보여요.'}catch(e){m.textContent=u.toString()}};
 render();setInterval(render,6e4);
 </script></body></html>
