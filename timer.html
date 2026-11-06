@@ -16,21 +16,37 @@ input:focus,select:focus{border-color:rgba(44,44,43,.45)}
 .lab{font-size:12px;color:var(--mut);margin-bottom:3px}
 .note{font-size:11px;color:var(--mut);margin-top:auto;padding-top:8px}.wrap{display:flex;align-items:center;gap:12px;flex:1}.left{flex:1;min-width:0}.tm{font-size:34px;line-height:1.1}.ph{font-size:12px;color:var(--mut)}
 .bar{height:3px;background:var(--bg);border-radius:2px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--ink);width:0}
-.ctl{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:116px}.stat{display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding-top:8px}.sq{width:8px;height:8px;border:1px solid var(--ink);border-radius:1.5px}.sq.on{background:var(--ink)}.sl{font-size:11px;color:var(--mut);margin-left:6px}
-@media (max-width:300px){.ctl{width:96px}.tm{font-size:28px}}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
-<div class="blk"><div class="hd"><div class="tt">작업 타이머</div><div class="sub" id="pre"></div></div>
+.ctl{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:124px}.stat{display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding-top:8px}.sq{width:8px;height:8px;border:1px solid var(--ink);border-radius:1.5px}.sq.on{background:var(--ink)}.sl{font-size:11px;color:var(--mut);margin-left:6px}
+.set{display:none;position:absolute;inset:4px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px}.set.on{display:block}
+.pre{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}.cus{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:end}.cus input{height:28px}
+.pick{border:none;background:none;color:var(--mut);font-size:12px;padding:0;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:300px){.ctl{width:100px}.tm{font-size:28px}}</style><script>(function(){var q=new URLSearchParams(location.search),b=q.get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b))document.documentElement.style.background='#'+b;if(q.get('font')==='serif')document.documentElement.classList.add('serif');})()</script></head><body>
+<div class="blk"><div class="hd"><div class="tt">작업 타이머</div><button class="pick" id="pk"></button></div>
 <div class="wrap"><div class="left"><div class="ph" id="ph">집중</div><div class="tm num" id="tm">50:00</div><div class="bar"><i id="bar"></i></div></div>
-<div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" data-p="50,10">50/10</button><button class="chip" data-p="25,5">25/5</button></div></div>
+<div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" id="sk">넘기기</button><button class="chip" id="st2">설정</button></div></div>
 <div class="stat" id="st"></div></div>
+<div class="set" id="set"><div class="hd"><div class="tt">타이머 설정</div><button class="chip" id="cl">닫기</button></div>
+<div class="lab">추천 설정</div><div class="pre" id="pre"></div>
+<div class="lab">직접 설정 (분)</div><div class="cus"><div><div class="lab">작업</div><input id="cw" type="number" min="5" max="180"></div><div><div class="lab">휴식</div><input id="cb" type="number" min="1" max="60"></div><button class="chip on" id="ap" style="height:28px">적용</button></div></div>
 <script>
-let W=50,B=10,phase='w',left=W*60,run=false,t=null;const K='an-timer-'+new Date().toISOString().slice(0,10);let mem=0;
+const Q=new URLSearchParams(location.search);const CK='an-timer-cfg';
+let cfg={w:50,b:10};try{const s=JSON.parse(localStorage.getItem(CK)||'null');if(s&&s.w)cfg=s}catch(e){}
+if(Q.get('w'))cfg={w:+Q.get('w'),b:+(Q.get('b')||10)};
+let phase='w',left=cfg.w*60,run=false,t=null;const K='an-timer-'+new Date().toISOString().slice(0,10);let mem=0;
 const $=id=>document.getElementById(id);
 function done(){try{return +(localStorage.getItem(K)||0)}catch(e){return mem}}function addDone(){try{localStorage.setItem(K,done()+1)}catch(e){mem++}}
-function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?W:B)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pre').textContent=W+' / '+B+'분';
-const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}const sl=document.createElement('span');sl.className='sl';sl.textContent='오늘 '+n+'블록 · '+Math.round(n*W/60*10)/10+'시간';$('st').appendChild(sl)}
-function tick(){left--;if(left<0){if(phase==='w'){addDone();phase='b';left=B*60}else{phase='w';left=W*60}}draw()}
+function save(){try{localStorage.setItem(CK,JSON.stringify(cfg))}catch(e){}}
+function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?cfg.w:cfg.b)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pk').textContent=cfg.w+' / '+cfg.b+'분';
+const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(6,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}const sl=document.createElement('span');sl.className='sl';sl.textContent='오늘 '+n+'블록';$('st').appendChild(sl)}
+function next(){if(phase==='w'){addDone();phase='b';left=cfg.b*60}else{phase='w';left=cfg.w*60}draw()}
+function tick(){left--;if(left<0){next();beep()}draw()}
+let AC=null;function beep(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();[0,0.25].forEach(d=>{const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=880;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(0.0001,AC.currentTime+d);g.gain.exponentialRampToValueAtTime(0.2,AC.currentTime+d+0.02);g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+d+0.18);o.start(AC.currentTime+d);o.stop(AC.currentTime+d+0.2)})}catch(e){}}
+function reset(){clearInterval(t);run=false;$('go').textContent='시작';phase='w';left=cfg.w*60;draw()}
 $('go').onclick=()=>{run=!run;$('go').textContent=run?'정지':'시작';if(run)t=setInterval(tick,1000);else clearInterval(t)};
-$('rs').onclick=()=>{clearInterval(t);run=false;$('go').textContent='시작';phase='w';left=W*60;draw()};
-document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{[W,B]=b.dataset.p.split(',').map(Number);$('rs').onclick()});
+$('rs').onclick=reset;$('sk').onclick=()=>{next()};
+const S=$('set');$('st2').onclick=$('pk').onclick=()=>{$('cw').value=cfg.w;$('cb').value=cfg.b;S.classList.add('on')};$('cl').onclick=()=>S.classList.remove('on');
+[[50,10],[75,15],[90,20],[25,5]].forEach(([w,b])=>{const x=document.createElement('button');x.className='chip'+(cfg.w===w&&cfg.b===b?' on':'');x.textContent=w+' / '+b;x.onclick=()=>{cfg={w,b};save();S.classList.remove('on');reset();buildPre()};$('pre').appendChild(x)});
+function buildPre(){[...$('pre').children].forEach(x=>{const [w,b]=x.textContent.split(' / ').map(Number);x.className='chip'+(cfg.w===w&&cfg.b===b?' on':'')})}
+$('ap').onclick=()=>{const w=Math.min(180,Math.max(5,+$('cw').value||50)),b=Math.min(60,Math.max(1,+$('cb').value||10));cfg={w,b};save();S.classList.remove('on');reset();buildPre()};
 draw();
 </script></body></html>
