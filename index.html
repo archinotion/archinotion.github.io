@@ -1,0 +1,14 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>아키노션 위젯</title><style>@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+:root{--ink:#37352F;--bg:#EFEDE8;--mut:#8b877f;--line:#d9d6cf}
+*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink)}
+.blk{position:relative;margin:16px 10px 10px 20px;background:#fff;border:2.5px solid var(--ink);border-radius:5px;padding:14px 16px}
+.blk:before{content:'';position:absolute;left:-12px;top:-11px;width:10px;bottom:6px;background:var(--ink);clip-path:polygon(0 0,100% 9px,100% 100%,0 calc(100% - 9px));}
+.blk:after{content:'';position:absolute;left:-12px;top:-11px;right:4px;height:10px;background:var(--ink);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%);}
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tt{font-family:'Black Han Sans',sans-serif;font-size:17px;letter-spacing:.5px}
+.sub{font-size:11px;color:var(--mut)}
+button{font:inherit;cursor:pointer}
+.chip{border:1.5px solid var(--ink);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff}
+input,select{font:inherit;border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
+input:focus,select:focus{border-color:var(--ink)} body{padding:20px} a{color:var(--ink)}</style></head><body><div class="blk"><div class="tt">아키노션 위젯</div><p class="sub">노션에서 /embed 를 입력하고 아래 주소를 붙여 넣으세요.</p><ul><li><a href="scale.html">축척 계산기</a></li><li><a href="dday.html">D-day</a></li><li><a href="timer.html">작업 타이머</a></li></ul></div></body></html>

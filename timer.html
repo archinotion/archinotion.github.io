@@ -1,0 +1,33 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>작업 타이머 · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+:root{--ink:#37352F;--bg:#EFEDE8;--mut:#8b877f;--line:#d9d6cf}
+*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink)}
+.blk{position:relative;margin:16px 10px 10px 20px;background:#fff;border:2.5px solid var(--ink);border-radius:5px;padding:14px 16px}
+.blk:before{content:'';position:absolute;left:-12px;top:-11px;width:10px;bottom:6px;background:var(--ink);clip-path:polygon(0 0,100% 9px,100% 100%,0 calc(100% - 9px));}
+.blk:after{content:'';position:absolute;left:-12px;top:-11px;right:4px;height:10px;background:var(--ink);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%);}
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tt{font-family:'Black Han Sans',sans-serif;font-size:17px;letter-spacing:.5px}
+.sub{font-size:11px;color:var(--mut)}
+button{font:inherit;cursor:pointer}
+.chip{border:1.5px solid var(--ink);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff}
+input,select{font:inherit;border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
+input:focus,select:focus{border-color:var(--ink)}
+.tm{font-family:'Black Han Sans';font-size:44px;text-align:center;letter-spacing:1px;margin:4px 0}.ph{text-align:center;font-size:12px;color:var(--mut)}
+.bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:var(--ink);width:0}
+.ctl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.stat{display:flex;gap:4px;justify-content:center;margin-top:10px}.sq{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:2px}.sq.on{background:var(--ink)}</style></head><body>
+<div class="blk"><div class="hd"><div class="tt">작업 타이머</div><div class="sub" id="pre"></div></div>
+<div class="ph" id="ph">집중</div><div class="tm" id="tm">50:00</div><div class="bar"><i id="bar"></i></div>
+<div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" data-p="50,10">50/10</button><button class="chip" data-p="25,5">25/5</button></div>
+<div class="stat" id="st"></div><div class="ph" style="margin-top:4px" id="sl"></div></div>
+<script>
+let W=50,B=10,phase='w',left=W*60,run=false,t=null;const K='an-timer-'+new Date().toISOString().slice(0,10);
+const $=id=>document.getElementById(id);
+let mem=0;function done(){try{return +(localStorage.getItem(K)||0)}catch(e){return mem}}function addDone(){try{localStorage.setItem(K,done()+1)}catch(e){mem++}}
+function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?W:B)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pre').textContent=W+'분 작업 · '+B+'분 휴식';
+const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}$('sl').textContent='오늘 쌓은 블록 '+n+'개 · '+Math.round(n*W/60*10)/10+'시간';document.title=$('tm').textContent+' · 작업 타이머'}
+function tick(){left--;if(left<0){if(phase==='w'){addDone();phase='b';left=B*60}else{phase='w';left=W*60}}draw()}
+$('go').onclick=()=>{run=!run;$('go').textContent=run?'일시정지':'시작';if(run)t=setInterval(tick,1000);else clearInterval(t)};
+$('rs').onclick=()=>{clearInterval(t);run=false;$('go').textContent='시작';phase='w';left=W*60;draw()};
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{[W,B]=b.dataset.p.split(',').map(Number);$('rs').onclick()});
+draw();
+</script></body></html>
