@@ -14,7 +14,8 @@ input,select{font:inherit;border:1.5px solid var(--line);border-radius:6px;paddi
 input:focus,select:focus{border-color:var(--ink)}
 .tm{font-family:'Black Han Sans';font-size:44px;text-align:center;letter-spacing:1px;margin:4px 0}.ph{text-align:center;font-size:12px;color:var(--mut)}
 .bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:var(--ink);width:0}
-.ctl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.stat{display:flex;gap:4px;justify-content:center;margin-top:10px}.sq{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:2px}.sq.on{background:var(--ink)}</style></head><body>
+.ctl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.stat{display:flex;gap:4px;justify-content:center;margin-top:10px}.sq{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:2px}.sq.on{background:var(--ink)}@media (max-width:300px){.blk{margin:12px 4px 6px 15px;padding:10px 10px}.tt{font-size:15px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}.dd{font-size:24px}.tm{font-size:34px}.list{grid-template-columns:1fr!important;gap:6px}.it{padding:7px 10px}.scales{gap:4px;margin-bottom:8px}.unit select{width:58px}input,select{padding:5px 6px;font-size:13px}.lab{margin-bottom:2px}.ctl{gap:4px}.stat .sq{width:10px;height:10px}.hd{margin-bottom:8px;gap:6px}}
+html,body{overflow:hidden}</style></head><body>
 <div class="blk"><div class="hd"><div class="tt">작업 타이머</div><div class="sub" id="pre"></div></div>
 <div class="ph" id="ph">집중</div><div class="tm" id="tm">50:00</div><div class="bar"><i id="bar"></i></div>
 <div class="ctl"><button class="chip on" id="go">시작</button><button class="chip" id="rs">리셋</button><button class="chip" data-p="50,10">50/10</button><button class="chip" data-p="25,5">25/5</button></div>
@@ -24,7 +25,7 @@ let W=50,B=10,phase='w',left=W*60,run=false,t=null;const K='an-timer-'+new Date(
 const $=id=>document.getElementById(id);
 let mem=0;function done(){try{return +(localStorage.getItem(K)||0)}catch(e){return mem}}function addDone(){try{localStorage.setItem(K,done()+1)}catch(e){mem++}}
 function draw(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('tm').textContent=m+':'+s;$('ph').textContent=phase==='w'?'집중':'휴식';const tot=(phase==='w'?W:B)*60;$('bar').style.width=(100*(1-left/tot))+'%';$('pre').textContent=W+'분 작업 · '+B+'분 휴식';
-const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}$('sl').textContent='오늘 쌓은 블록 '+n+'개 · '+Math.round(n*W/60*10)/10+'시간';document.title=$('tm').textContent+' · 작업 타이머'}
+const n=done();$('st').innerHTML='';for(let i=0;i<Math.max(8,n);i++){const q=document.createElement('div');q.className='sq'+(i<n?' on':'');$('st').appendChild(q)}$('sl').textContent='오늘 블록 '+n+'개 · '+Math.round(n*W/60*10)/10+'h';document.title=$('tm').textContent+' · 작업 타이머'}
 function tick(){left--;if(left<0){if(phase==='w'){addDone();phase='b';left=B*60}else{phase='w';left=W*60}}draw()}
 $('go').onclick=()=>{run=!run;$('go').textContent=run?'일시정지':'시작';if(run)t=setInterval(tick,1000);else clearInterval(t)};
 $('rs').onclick=()=>{clearInterval(t);run=false;$('go').textContent='시작';phase='w';left=W*60;draw()};
