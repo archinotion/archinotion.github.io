@@ -1,34 +1,32 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>축척 계산기 · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap');
-:root{--ink:#37352F;--bg:#EFEDE8;--mut:#8b877f;--line:#d9d6cf}
-*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink)}
-.blk{position:relative;margin:16px 10px 10px 20px;background:#fff;border:2.5px solid var(--ink);border-radius:5px;padding:14px 16px}
-.blk:before{content:'';position:absolute;left:-12px;top:-11px;width:10px;bottom:6px;background:var(--ink);clip-path:polygon(0 0,100% 9px,100% 100%,0 calc(100% - 9px));}
-.blk:after{content:'';position:absolute;left:-12px;top:-11px;right:4px;height:10px;background:var(--ink);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%);}
-.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.tt{font-family:'Black Han Sans',sans-serif;font-size:17px;letter-spacing:.5px}
-.sub{font-size:11px;color:var(--mut)}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>축척 계산기 · 아키노션</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
+:root{--ink:#37352F;--bg:#F4F2EE;--mut:#8b877f;--line:#E4E1DA}
+*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+.blk{margin:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.tt{font-size:13px;font-weight:600;letter-spacing:.2px}.tt:before{content:'';display:inline-block;width:8px;height:8px;background:var(--ink);border-radius:2px;margin-right:7px;vertical-align:1px}
+.sub{font-size:11px;color:var(--mut);font-weight:400}
 button{font:inherit;cursor:pointer}
-.chip{border:1.5px solid var(--ink);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink)}
-.chip.on{background:var(--ink);color:#fff}
-input,select{font:inherit;border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ink);font-weight:400}
+.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+input,select{font:inherit;font-weight:400;border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--bg);color:var(--ink);outline:none;width:100%}
 input:focus,select:focus{border-color:var(--ink)}
-.row{display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:end}.lab{font-size:11px;color:var(--mut);margin-bottom:4px}
-.eq{text-align:center;font-family:'Black Han Sans';font-size:18px;padding-bottom:6px}.scales{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.unit{display:flex;gap:6px}.unit input{flex:1}.unit select{width:72px;flex:none}.res{margin-top:10px;font-size:12px;color:var(--mut)}@media (max-width:420px){.row{grid-template-columns:1fr}.eq{transform:rotate(90deg);padding:0}}@media (max-width:300px){.blk{margin:12px 4px 6px 15px;padding:10px 10px}.tt{font-size:15px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}.dd{font-size:24px}.tm{font-size:34px}.list{grid-template-columns:1fr!important;gap:6px}.it{padding:7px 10px}.scales{gap:4px;margin-bottom:8px}.unit select{width:58px}input,select{padding:5px 6px;font-size:13px}.lab{margin-bottom:2px}.ctl{gap:4px}.stat .sq{width:10px;height:10px}.hd{margin-bottom:8px;gap:6px}}
-html,body{overflow:hidden}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
-<div class="blk"><div class="hd"><div class="tt">축척 계산기</div><div class="sub">아키노션</div></div>
+.num{font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+@media (max-width:300px){.blk{padding:10px 10px}.sub{display:none}.chip{padding:2px 8px;font-size:11px}input,select{padding:5px 6px;font-size:13px}}.row{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;align-items:end}.lab{font-size:11px;color:var(--mut);margin-bottom:4px}
+.eq{text-align:center;font-size:16px;color:var(--mut);padding-bottom:7px}.scales{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.unit{display:flex;gap:6px}.unit input{flex:1;min-width:0}.unit select{width:66px;flex:none}.res{margin-top:10px;font-size:11px;color:var(--mut)}
+@media (max-width:420px){.row{grid-template-columns:1fr}.eq{transform:rotate(90deg);padding:0}}</style><script>(function(){var b=new URLSearchParams(location.search).get('bg');if(b&&/^[0-9a-fA-F]{6}$/.test(b)){document.documentElement.style.background='#'+b;}})()</script></head><body>
+<div class="blk"><div class="hd"><div class="tt">축척 계산기</div><div class="sub">실제 치수 ⇄ 도면·모형 치수</div></div>
 <div class="scales" id="sc"></div>
-<div class="row"><div><div class="lab">실제 치수</div><div class="unit"><input id="real" inputmode="decimal" value="3000"><select id="ru"><option>mm</option><option>cm</option><option selected>m</option></select></div></div>
+<div class="row"><div><div class="lab">실제 치수</div><div class="unit"><input id="real" inputmode="decimal" value="3"><select id="ru"><option>mm</option><option>cm</option><option selected>m</option></select></div></div>
 <div class="eq">⇄</div><div><div class="lab">도면·모형 치수</div><div class="unit"><input id="draw" inputmode="decimal"><select id="du"><option selected>mm</option><option>cm</option></select></div></div></div>
 <div class="res" id="res"></div></div>
 <script>
 const S=[20,50,100,200,300,500,1000];const U={mm:1,cm:10,m:1000};let k=+(new URLSearchParams(location.search).get('s')||100);
-const sc=document.getElementById('sc'),real=document.getElementById('real'),draw=document.getElementById('draw'),ru=document.getElementById('ru'),du=document.getElementById('du'),res=document.getElementById('res');
-real.value='3';
+const $=i=>document.getElementById(i),sc=$('sc'),real=$('real'),draw=$('draw'),ru=$('ru'),du=$('du'),res=$('res');
 function chips(){sc.innerHTML='';S.forEach(s=>{const b=document.createElement('button');b.className='chip'+(s===k?' on':'');b.textContent='1:'+s;b.onclick=()=>{k=s;chips();fromReal()};sc.appendChild(b)})}
 const f=n=>Math.round(n*100)/100;
-function fromReal(){const r=parseFloat(real.value);if(isNaN(r)){draw.value='';return}const mm=r*U[ru.value]/k;draw.value=f(mm/U[du.value]);note()}
-function fromDraw(){const d=parseFloat(draw.value);if(isNaN(d)){real.value='';return}const mm=d*U[du.value]*k;real.value=f(mm/U[ru.value]);note()}
-function note(){res.textContent='1:'+k+' 에서 도면 1mm = 실제 '+f(k/1000)+'m'}
+function fromReal(){const r=parseFloat(real.value);if(isNaN(r)){draw.value='';return}draw.value=f(r*U[ru.value]/k/U[du.value]);note()}
+function fromDraw(){const d=parseFloat(draw.value);if(isNaN(d)){real.value='';return}real.value=f(d*U[du.value]*k/U[ru.value]);note()}
+function note(){res.textContent='1:'+k+' 에서 도면 1mm는 실제 '+f(k/1000)+'m'}
 real.oninput=fromReal;ru.onchange=fromReal;draw.oninput=fromDraw;du.onchange=fromReal;chips();fromReal();
 </script></body></html>
